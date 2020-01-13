@@ -5,9 +5,6 @@ import ScrollBottom from './ScrollBottom'
 import {
   AppBar,
   Toolbar,
-  InputLabel,
-  Select,
-  MenuItem,
 } from '@material-ui/core/';
 
 
@@ -20,7 +17,8 @@ class App extends Component {
     this.state = {
       baseURL: 'https://dog.ceo/api/breed/',
       data: [],
-      type: 'pug'
+      type: 'pug',
+      existImg: new Set()
     }
     this.getData = this.getData.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -36,8 +34,15 @@ class App extends Component {
       url: `${this.state.baseURL}${this.state.type}/images/random/30`
     })
     .then(res => {
+      let tmp = []
+      res.data.message.forEach(img => {
+        if (!this.state.existImg.has(img)) {
+          tmp.push(img)
+          this.state.existImg.add(img)
+        }
+      })
       this.setState({
-        data: [...this.state.data, ...res.data.message]
+        data: [...this.state.data, ...tmp]
       })
     })
   }
@@ -45,7 +50,8 @@ class App extends Component {
   handleChange(e) {
     this.setState({
       type: e.target.value,
-      data: []
+      data: [],
+      existImg: new Set()
     }, () => this.getData())
   }
 

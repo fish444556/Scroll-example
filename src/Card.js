@@ -3,9 +3,13 @@ import './Card.css'
 
 class Card extends Component {
   render() {
-    return <img src={this.props.url}></img>
+    return (
+      <img
+        src={this.props.url}
+        alt="img"
+      ></img>
+    )
   }
-
 }
 
 export default Card
