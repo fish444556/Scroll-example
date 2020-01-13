@@ -1,3 +1,5 @@
-.App {
-  text-align: center;
+select {
+  background-color: transparent;
+  border: transparent;
+  font-size: 20px;
 }
